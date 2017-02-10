@@ -1,9 +1,21 @@
 require 'octokit'
+require 'forwardable'
 module Piler
   class Client
+    extend Forwardable
+    %i(
+      projects
+      project_columns
+      column_cards
+      create_project_column
+      create_project_card
+    ).each do |client_method|
+      delegate client_method => :octokit
+    end
+
     attr_reader :octokit
 
-    def initialize(access_token:)
+    def initialize(access_token: nil)
       @access_token = access_token
     end
 
