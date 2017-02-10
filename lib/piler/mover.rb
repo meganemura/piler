@@ -18,7 +18,7 @@ module Piler
     end
 
     def copy_columns(dry_run: false)
-      puts "#{from_project.name} -> #{to_project.name}"
+      puts "Piler moves cards from '#{from_project.name}' to '#{to_project.name}'"
       from_project.columns.each do |from_column|
         puts "  Copy #{from_column.name}"
 
