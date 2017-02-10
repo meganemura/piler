@@ -10,7 +10,14 @@ module Piler
       create_project_column
       create_project_card
     ).each do |client_method|
-      delegate client_method => :octokit
+      define_method client_method do |*args|
+        if args.last.is_a?(Hash)
+          args.last.update(accept: accept_header)
+        else
+          args << { accept: accept_header }
+        end
+        octokit.send(client_method, *args)
+      end
     end
 
     attr_reader :octokit
@@ -25,6 +32,10 @@ module Piler
 
     def access_token
       @access_token ||= ENV['PILER_GITHUB_TOKEN']
+    end
+
+    def accept_header
+      'application/vnd.github.inertia-preview+json'
     end
   end
 end
