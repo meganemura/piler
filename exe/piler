@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require "piler"
+require "piler/cli"
+Piler::CLI.new.run
