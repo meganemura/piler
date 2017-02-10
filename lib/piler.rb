@@ -1,3 +1,5 @@
+require "octokit_prepends"
+
 require "piler/client"
 
 require "piler/card"
